@@ -5,10 +5,17 @@ import Data.QueryPayDAO;
 import Model.Tbl_person_data;
 import Model.Tbl_query_pay;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
@@ -35,5 +42,31 @@ public class WsPayRest {
             
         String json = new Gson().toJson(rs_query_pay);
         return Response.ok(json, MediaType.APPLICATION_JSON).build();
+    }
+    
+    @POST
+    @Path("auth")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createToken(Tbl_person_data person_dt){
+        Tbl_person_data person_data = new PersonDataDAO().findOnePerson(new Tbl_person_data(person_dt.getNum_identificacion()));
+        
+        if (person_data.getNom_largo()!= null) {      
+            String key = person_data.getNum_identificacion();
+            long time = System.currentTimeMillis();
+            String jwt = "Bearer "+
+                              Jwts.builder()
+                             .setSubject(person_data.getNom_largo())
+                             .signWith(SignatureAlgorithm.HS512, key)
+                             .setIssuedAt(new Date(time))
+                             .setExpiration(new Date(time+900000)) //15 minutos de expiracion
+                             .compact();
+            JsonObject myObj = new JsonObject();
+            JsonElement jwt_obj = new Gson().toJsonTree(jwt);
+            myObj.add("Token", jwt_obj);
+            return Response.status(Response.Status.CREATED).entity(myObj.toString()).build(); 
+        }else{
+            return Response.status(Response.Status.UNAUTHORIZED).build(); 
+        }      
     }
 }
