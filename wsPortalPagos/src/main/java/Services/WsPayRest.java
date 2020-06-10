@@ -12,6 +12,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.json.Json;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
