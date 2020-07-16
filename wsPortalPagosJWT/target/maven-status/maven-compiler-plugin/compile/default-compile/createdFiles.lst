@@ -1,0 +1,8 @@
+Data\Conexion.class
+Services\Intercepter.class
+Services\WsPayRest.class
+Model\Tbl_person_data.class
+Data\PersonDataDAO.class
+Services\ConfigWsPayRest.class
+Model\Tbl_query_pay.class
+Data\QueryPayDAO.class

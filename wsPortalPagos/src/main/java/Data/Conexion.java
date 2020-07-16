@@ -12,6 +12,8 @@ public class Conexion {
     private static final String JDBC_URL = "jdbc:oracle:thin:@srvprebd-scan.colsanitas.com:1521/PSINU";
     private static final String JDBC_USER = "bamoraro";
     private static final String JDBC_PASSWORD = "PresInu2020";
+    /*private static final String JDBC_USER = "usinu";
+    private static final String JDBC_PASSWORD = "col90sinu";*/
     
     private static OracleDataSource dataSource;
 

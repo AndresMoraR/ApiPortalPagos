@@ -12,9 +12,10 @@ public class PersonDataDAO {
     private PreparedStatement stmt = null;
     private ResultSet rs = null;
     
-    private static final String SQL_SELECT_ONE = "SELECT bt.ID_TERCERO, bt.NUM_IDENTIFICACION, bt.NOM_LARGO, bt.TIP_IDENTIFICACION "
-                                           + " FROM usinu.BAS_TERCERO bt "
-                                           + " WHERE bt.NUM_IDENTIFICACION = ?";
+    private static final String SQL_SELECT_ONE = "SELECT bt.ID_TERCERO, bt.NUM_IDENTIFICACION, bt.NOM_LARGO, bvti.COD_AUXILIAR1 AS TIP_IDENTIFICACION"
+                                           + " FROM usinu.BAS_TERCERO bt, "
+                                           + " usinu.BAS_VIS_TIP_IDENTIFICACION bvti "
+                                           + " WHERE bt.TIP_IDENTIFICACION = bvti.COD_TABLA AND bt.NUM_IDENTIFICACION = ?";
     
     /** Return data of person
      * @param person_data
@@ -30,7 +31,6 @@ public class PersonDataDAO {
                 String NUM_IDENTIFICACION = rs.getString("NUM_IDENTIFICACION");
                 String name_large = rs.getString("NOM_LARGO");
                 String tip_identificacion = rs.getString("TIP_IDENTIFICACION");
-
                 person_data.setId_tercero(id);
                 person_data.setNum_identificacion(NUM_IDENTIFICACION);
                 person_data.setNom_largo(name_large);

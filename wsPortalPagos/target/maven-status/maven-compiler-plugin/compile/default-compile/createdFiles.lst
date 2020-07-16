@@ -1,0 +1,11 @@
+Data\Conexion.class
+Data\QueryPayMatDao.class
+Services\WsPayMatRest.class
+Model\Tbl_person_data.class
+Data\PersonDataDAO.class
+Model\Tbl_query_pay_ins.class
+Services\ConfigWsPayRest.class
+Services\WsPayInscRest.class
+Services\WsPayPersonRest.class
+Model\Tbl_query_pay_mat.class
+Data\QueryPayInsDAO.class
